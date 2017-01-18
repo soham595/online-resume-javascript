@@ -1,34 +1,153 @@
 var bio = {
     "name" : "Soham Das",
     "role" : "Student",
-    "contactInfo" : "9954783950",
+    "contactInfo" : {
+        "mobile" : "9954783950",
+        "email" : "soham595959@gmail.com",
+        "github" : "github.com/soham595",
+        "skype" : "sohamtg",
+        "facebook" : "facebook.com/soham595"
+    },
     "picture" : "images/me.png",
     "welcomeMessage" : "This is my resume",
-    "skills" : ["C"," Java"," Javascript"," Web Development"," Android Development"]
+    "skills" : ["C","XML ","HTML "," Java"," Javascript"," Web Development"," Android Development"]
 }
 
-var formattedName = HTMLheaderName.replace("%data%", bio.name);
+var education = {
+    "schools" : [
+    {
+        "name" : "Army Public School",
+        "city" : "Tezpur",
+        "years" : "2006-2012"
+    },
+    {
+        "name" : "RNS Institute of Technology",
+        "city" : "Bengaluru, Karnataka",
+        "degree" : "B.E",
+        "major" : ["ComputerScience"],
+        "years" : "2015-"
+    }
+    ],
+    "onlineCourses" : [
+    {
+        "name" : "Web Development",
+        "school" : "Udacity"
+    }
+    ]
+}
+
 var formattedRole = HTMLheaderRole.replace("%data%", bio.role);
-var formattedMobile = HTMLmobile.replace("%data%", bio.contactInfo);
-var formattedbiopic = HTMLbioPic.replace("%data%", bio.picture);
-var formattedwelcomeMessage = HTMLwelcomeMsg.replace("%data%", bio.welcomeMessage);
-var formattedSkills = HTMLskills.replace("%data%", bio.skills);
-
 $("#header").prepend(formattedRole);
+
+var formattedName = HTMLheaderName.replace("%data%", bio.name);
 $("#header").prepend(formattedName);
-$("#header").append(formattedMobile);
-$("#header").prepend(formattedbiopic);
-$("#lets-connect").append(formattedwelcomeMessage);
-$("#header").append(formattedSkills);
 
-var work = {};
-var education = {};
+var formattedPic = HTMLbioPic.replace("%data%", bio.picture);
+$("#header").append(formattedPic);
 
-work.position = "Student";
+var formattedmobile = HTMLmobile.replace("%data%", bio.contactInfo.mobile);
+$("#topContacts").append(formattedmobile);
 
-education["name"] = "RNSIT";
-education["years"] = "2015-";
-education["city"] = "Bengaluru";
+var formattedemail = HTMLemail.replace("%data%", bio.contactInfo.email);
+$("#topContacts").append(formattedemail);
 
-$("#main").append(work["position"]);
-$("#main").append(education.name);
+var formattedgithub = HTMLgithub.replace("%data%", bio.contactInfo.github);
+$("#topContacts").append(formattedgithub);
+
+var formattedblog = HTMLblog.replace("%data%", bio.contactInfo.skype);
+$("#topContacts").append(formattedblog);
+
+var formattedtwitter = HTMLtwitter.replace("%data%", bio.contactInfo.facebook);
+$("#topContacts").append(formattedtwitter);
+
+
+if (bio.skills.length > 0) {
+    $("#header").append(HTMLskillsStart);
+
+    var formattedSkill = HTMLskills.replace("%data%", bio.skills[0]);
+    $("#skills").append(formattedSkill);
+
+    formattedSkill = HTMLskills.replace("%data%", bio.skills[1]);
+    $("#skills").append(formattedSkill);
+
+    formattedSkill = HTMLskills.replace("%data%", bio.skills[2]);
+    $("#skills").append(formattedSkill);
+
+    formattedSkill = HTMLskills.replace("%data%", bio.skills[3]);
+    $("#skills").append(formattedSkill);
+
+    formattedSkill = HTMLskills.replace("%data%", bio.skills[4]);
+    $("#skills").append(formattedSkill);
+
+    formattedSkill = HTMLskills.replace("%data%", bio.skills[5]);
+    $("#skills").append(formattedSkill);
+
+    formattedSkill = HTMLskills.replace("%data%", bio.skills[6]);
+    $("#skills").append(formattedSkill);
+}
+
+/*
+Your process:
+The resume has four distinct sections: work, education, projects and a header with biographical information. You’ll need to:
+
+Build four JSONs, each one representing a different resume section. The objects that you create need to follow the names within the schema below exactly. Make sure your JSONs are formatted correctly using JSONlint.com.
+bio contains:
+
+      name : string
+      role : string
+      contacts : an object with
+            mobile: string
+            email: string
+            github: string
+            twitter: string
+            location: string
+      welcomeMessage: string
+      skills: array of strings
+      biopic: url
+      display: function taking no parameters
+education contains:
+
+      schools: array of objects with
+           name: string
+           location: string
+           degree: string
+           majors: array of strings
+           dates: integer (graduation date)
+           url: string
+      onlineCourses: array with
+           title: string
+           school: string
+           date: integer (date finished)
+           url: string
+      display: function taking no parameters
+work contains
+
+      jobs: array of objects with
+           employer: string
+           title: string
+           location: string
+           dates: string (works with a hyphen between them)
+           description: string
+      display: function taking no parameters
+projects contains:
+
+      projects: array of objects with
+            title: string
+            dates: string (works with a hyphen between them)
+            description: string
+            images: array with string urls
+      display: function taking no parameters
+Iterate through each JSON and append its information to index.html in the correct section.
+
+First off, you’ll be using jQuery’s selector.append() and selector.prepend() functions to modify index.html. selector.append() makes an element appear at the end of a selected section. selector.prepend() makes an element appear at the beginning of a selected section.
+Pay close attention to the ids of the <div>s in index.html and the HTML snippets in helper.js. They’ll be very useful as jQuery selectors for selector.append() and selector.prepend()
+You’ll also be using the JavaScript method string.replace(old, new) to swap out all the placeholder text (e.g. %data%) for data from your resume JSONs.
+Here’s an example of some code that would add the location of one your companies to the page:
+var formattedLocation = HTMLworkLocation.replace("%data%", work.jobs[job].location);
+$(".work-entry:last").append(formattedLocation);
+Use the mockup at the page of this document as a guide for the order in which you should append elements to the page.
+The resume includes an interactive map. To add it, append the googleMap string to <div id=”mapDiv”>.
+All of your code for adding elements to the resume should be within functions. And all of your functions should be encapsulated within the same objects containing your resume data. For instance, your functions for appending work experience elements to the page should be found within the same object containing data about your work experience.
+Your resume should also console.log() information about click locations. On line 90 in helper.js, you’ll find a jQuery onclick handler that you’ll need to modify to work with the logClicks(x,y) function above it.
+It’s possible to make additional information show up when you click on the pins in the map. Check out line 174 in helper.js and the Google Maps API to get started.
+*/
