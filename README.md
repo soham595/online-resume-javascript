@@ -1,1 +1,1 @@
-Creating resume by following Udacity Front End Web Development Course.
+Created by following Udacity Front End Web Development Course.
